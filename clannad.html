@@ -1,0 +1,36 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="nagisa" ng-controller="nagisaCtrl">
+  <p>名字 : <input type="text" ng-model="name"></p>
+  <h1>Hello {{name}}</h1>
+  <list ng-repeat="v in names">
+  	<option>
+  		{{v.Name}}
+  	</option>
+  </list>
+</div>
+
+<script>
+	var app = angular.module('nagisa', []);
+	app.controller('nagisaCtrl', function($scope,$http) {
+		$scope.name = "nagisa";
+		$scope.userList= [1,2,34,5];
+		 $http({
+        method: 'GET',
+        url: './sites.json'
+    }).then(function successCallback(response) {
+            $scope.names = response.data.sites;
+        }, function errorCallback(response) {
+            // 请求失败执行代码
+            alert("f");
+    });
+	})
+</script>
+</body>
+</html>
